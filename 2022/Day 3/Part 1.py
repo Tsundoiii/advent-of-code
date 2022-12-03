@@ -7,7 +7,6 @@ common = []
 for sack in input:
     for letter in sack[0]:
         if letter in sack[1]:
-            print(letter)
             common.append(letter)
             break
 
