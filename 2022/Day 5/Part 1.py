@@ -22,9 +22,6 @@ for column in range(9):
 
 crate_array = [[c for c in crate if c != '    ' and c != '   '] for crate in crate_array]
 
-for ca in crate_array:
-    print(ca)
-
 for i in instructions:
     for j in range(i["move"]):
         crate_array[i["to"]].insert(0, crate_array[i["from"]][0])
