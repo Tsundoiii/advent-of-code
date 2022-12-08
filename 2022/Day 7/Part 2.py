@@ -56,11 +56,13 @@ for i in range(1, len(input)):
             
 #print([{c.name: c.size()} for c in directories])
 
-sum = 0
+unused = 70000000 - root.size()
+current_smallest = directories[0]
+valid = []
 
 for directory in directories:
     print({directory.name: directory.size()})
-    if (s := directory.size()) <= 100000:
-        sum += s
+    if directory.size() + unused >= 30000000:
+        valid.append(directory.size())
 
-print(sum)
+print(min(valid))
