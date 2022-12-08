@@ -1,5 +1,8 @@
-input = [ #open("input.txt").readlines()
-"$ cd /",
+from hashlib import new
+
+
+input = [
+"$ cd /", #open("input.txt").readlines()
 "$ ls",
 "dir a",
 "14848514 b.txt",
@@ -46,8 +49,11 @@ class Directory(Node):
             elif isinstance(child, Directory):
                 size += child.size()
 
+        return size
+
 class File(Node):
-    def __init__(self, parent: Directory, size: int):
+    def __init__(self, name: str, size: int, parent: Directory):
+        self.name: str = name
         self.parent: Directory = parent
         self.size: int = size
 
@@ -57,19 +63,23 @@ directories: list[Directory] = []
 
 for i in range(1, len(input)):
     line = input[i]
-    if line[0] == "$":
-        match line[1]:
-            case "cd":
-                if line[2] == "..":
-                    current_directory = current_directory.parent
-                else:
-                    for child in current_directory.children:
-                        if isinstance(child, Directory) and child.name == list[2]:
-                            current_directory = child
-            case "ls":
-                pass
+    if line[1] == "cd":
+        print(line)
+        if line[2] == "..":
+            current_directory = current_directory.parent
+        else:
+            print([c.name for c in current_directory.children])
+            for child in current_directory.children:
+                if isinstance(child, Directory) and child.name == list[2]:
+                    current_directory = child
     else:
-        continue
+        if line[0] == "dir":
+            new_directory = Directory(line[1], current_directory)
+            current_directory.add(new_directory)
+            directories.append(new_directory)
+            print(new_directory.name + " " + new_directory.parent.name + " " + str([c.name for c in current_directory.children]))
+        elif line[0] != "$":
+            current_directory.add(File(line[1], int(line[0]), current_directory))
 
 sum = 0
 
