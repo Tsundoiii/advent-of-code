@@ -16,9 +16,8 @@ for move in input:
             house[0] += 1
         case "<":
             house[0] -= 1
-    last = house
-    if tuple([house[0], house[1]]) in visited.keys():
-        visited[tuple([house[0], house[1]])] += 1
+    if (house[0], house[1]) in visited.keys():
+        visited[(house[0], house[1])] += 1
     else:
         visited.update({
             (house[0], house[1]): 1
