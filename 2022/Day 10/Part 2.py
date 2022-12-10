@@ -20,9 +20,5 @@ for instruction in input:
         cycle += 1
         X += int(instruction.split()[1])
 
-display = []
-for i in range(0, 241, 40):
-    display.append(pixels[i:i + 40])
-
-for line in display:
-    print("".join(line))
+for i in range(0, 240, 40):
+    print(''.join(pixels[i:i + 40]))
