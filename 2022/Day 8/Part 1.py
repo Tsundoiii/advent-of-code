@@ -23,21 +23,12 @@ def after(row, index):
     else:
         return row[index + 1:]
 
-idk = []
-
 for i, treerow in enumerate(input):
-    d = []
     for j, tree in enumerate(treerow):
         try:
             if max(before(treerow, j)) < tree or max(after(treerow, j)) < tree or max(before(columns[j], i)) < tree or max(after(columns[j], i)) < tree:
-                #treerow[j] = True
-                d.append(True)
                 visible += 1
-            else:
-                d.append(tree)
         except ValueError:
             visible += 1
-            d.append(True)
-    idk.append(d)
 
 print(visible)
