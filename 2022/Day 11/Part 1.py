@@ -1,0 +1,46 @@
+from math import floor
+
+input = [x.splitlines() for x in open("test.txt").read().split("\n\n")]
+operations = {
+    "+": lambda x, y : x + y,
+    "*": lambda x, y : x * y
+}
+monkeys = []
+def operation(i):
+    if i[2].split()[-1] != "old":
+        return lambda old : operations[i[2].split()[-2]](old, int(i[2].split()[-1]))
+    else:
+        return lambda old : operations[i[2].split()[-2]](old, old)
+def test(i):
+    return lambda n : n % int(i[3].split()[-1]) == 0
+
+for i in input:
+    monkeys.append({
+        "items": [int(x) for x in i[1].lstrip("  Starting items: ").split(", ")],
+        "operation": operation(i),
+        "test": test(i),
+        "true": int(i[4].split()[-1]),
+        "false": int(i[5].split()[-1]),
+        "inspected": 0
+    })
+
+for round in range(20):
+    for monkey in monkeys:
+        for item in monkey["items"]:
+            worry = monkey["operation"](item)
+            worry = floor(worry / 3)
+            if monkey["test"](worry):
+                monkeys[monkey["true"]]["items"].append(worry)
+            else:
+                monkeys[monkey["false"]]["items"].append(worry)
+            monkey["items"].pop(0)
+
+            monkey["inspected"] += 1
+
+    for m in monkeys:
+        print(m["items"])
+
+    print()
+
+for m in monkeys:
+    print(m["inspected"])
