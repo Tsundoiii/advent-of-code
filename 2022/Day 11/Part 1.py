@@ -1,6 +1,6 @@
 from math import floor
 
-input = [x.splitlines() for x in open("test.txt").read().split("\n\n")]
+input = [x.splitlines() for x in open("input.txt").read().split("\n\n")]
 operations = {
     "+": lambda x, y : x + y,
     "*": lambda x, y : x * y
@@ -16,6 +16,7 @@ def test(i):
 
 for i in input:
     monkeys.append({
+        "number": int(i[0].split()[-1].rstrip(":")),
         "items": [int(x) for x in i[1].lstrip("  Starting items: ").split(", ")],
         "operation": operation(i),
         "test": test(i),
@@ -33,14 +34,10 @@ for round in range(20):
                 monkeys[monkey["true"]]["items"].append(worry)
             else:
                 monkeys[monkey["false"]]["items"].append(worry)
-            monkey["items"].pop(0)
 
             monkey["inspected"] += 1
-
-    for m in monkeys:
-        print(m["items"])
-
-    print()
+        else:
+            monkey["items"].clear()
 
 for m in monkeys:
     print(m["inspected"])
