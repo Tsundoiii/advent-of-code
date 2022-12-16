@@ -1,5 +1,3 @@
-from math import floor
-
 input = [x.splitlines() for x in open("test.txt").read().split("\n\n")]
 operations = {
     "+": lambda x, y : x + y,
